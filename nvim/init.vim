@@ -1,5 +1,5 @@
 " 
-" .vimrc
+" init.vim
 "
 
 " Plugins
@@ -8,15 +8,9 @@
 
 	Plug 'junegunn/goyo.vim'
 	Plug 'rafi/awesome-vim-colorschemes'
-	Plug 'jceb/vim-orgmode'
-	Plug 'tpope/vim-speeddating'
 	Plug 'PProvost/vim-ps1'
 	Plug 'jiangmiao/auto-pairs'
-	Plug 'itchyny/lightline.vim'
-	Plug 'itchyny/vim-gitbranch'
-	Plug 'tpope/vim-dispatch'
 	Plug 'sheerun/vim-polyglot'
-
 
 	call plug#end()
 
@@ -47,15 +41,6 @@
 	
 	set shell=pwsh
 
-	let g:lightline = { 
-			\ 'colorscheme': 'wombat',
-			\ 'active': {
-			\	'left': [ [ 'mode', 'paste'],['gitbranch', 'readonly', 'filename', 'modified'] ]
-			\},
-			\ 'component_function': {
-			\   'gitbranch': 'gitbranch#name'
-			\},
-			\}
 	" Colors
 	colorscheme deep-space
 	set t_Co=256
@@ -89,6 +74,3 @@
 
 	map <leader>g :Goyo \| set linebreak \| call Numbers()<CR>
 
-" Org
-	
-	let g:org_agenda_files = ["~/org/*.org"]
