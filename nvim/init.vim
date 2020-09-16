@@ -4,7 +4,7 @@
 
 " Plugins
 
-	call plug#begin('~/.vim/plugged')
+	call plug#begin('~/.config/nvim/plugged')
 
 	Plug 'junegunn/goyo.vim'
 	Plug 'rafi/awesome-vim-colorschemes'
@@ -60,8 +60,7 @@
 	map <C-l> <C-w>l
 	map <leader>a :w<CR> :!compiler %<CR>
 	map <leader>b :w<CR> :Dispatch<CR>
-	"map <leader>r :!%:p:r<CR>
-	map <leader>r :term %<CR>	
+	map <leader>r :!%:p:r<CR>
 	map <leader>f :Files<CR>
 	map <F8> :w <CR> :make %<<CR>
 	map <F5> :w <CR> :make %<<CR> :!./%<<CR>
