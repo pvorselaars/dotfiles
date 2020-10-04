@@ -11,4 +11,8 @@ function Unlock-Vault {
     }
 }
 
+# Set shortcuts
+
+Set-Alias -Name stop -Value Stop-Computer
+
 
