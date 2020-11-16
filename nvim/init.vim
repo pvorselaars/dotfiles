@@ -58,12 +58,15 @@
 	map <C-j> <C-w>j
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
+	map <leader>m :w<CR> :make<CR>
 	map <leader>a :w<CR> :!compiler %<CR>
 	map <leader>b :w<CR> :Dispatch<CR>
 	map <leader>r :!%:p:r<CR>
 	map <leader>f :Files<CR>
+	map <leader>s :term<CR>
 	map <F8> :w <CR> :make %<<CR>
 	map <F5> :w <CR> :make %<<CR> :!./%<<CR>
+	tnoremap <ESC> <C-\><C-n>
 	
 " Auto completion
 
