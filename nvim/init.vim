@@ -39,8 +39,6 @@
 	set noshowmode
 	set autochdir
 	
-	set shell=pwsh
-
 	" Colors
 	colorscheme deep-space
 	set t_Co=256
@@ -60,7 +58,6 @@
 	map <C-l> <C-w>l
 	map <leader>m :w<CR> :make<CR>
 	map <leader>a :w<CR> :!compiler %<CR>
-	map <leader>b :w<CR> :Dispatch<CR>
 	map <leader>r :!%:p:r<CR>
 	map <leader>f :Files<CR>
 	map <leader>s :term<CR>
