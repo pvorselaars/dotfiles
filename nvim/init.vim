@@ -59,11 +59,14 @@
 	map <leader>m :w<CR> :make<CR>
 	map <leader>a :w<CR> :!compiler %<CR>
 	map <leader>r :!%:p:r<CR>
-	map <leader>f :Files<CR>
 	map <leader>s :term<CR>
 	map <F8> :w <CR> :make %<<CR>
 	map <F5> :w <CR> :make %<<CR> :!./%<<CR>
 	tnoremap <ESC> <C-\><C-n>
+	map <leader>b :ls<CR>:b<Space>
+	map <leader>v :ls<CR>:vsp \|<Space>b<Space>
+	map <leader>h :ls<CR>:sp \|<Space>b<Space>
+	map <leader>o :on<CR>
 	
 " Auto completion
 
