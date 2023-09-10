@@ -1,9 +1,0 @@
-export PS1=' \W \$ '
-export EDITOR=nvim
-
-alias k=kubectl
-alias kns='k config set-context --current --namespace'
-alias kc='k config get-contexts'
-alias ksc='k config use-context'
-set -o vi
-bind -m vi-insert "\C-l":clear-screen
