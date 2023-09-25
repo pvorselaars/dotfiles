@@ -21,7 +21,15 @@
 	call plug#end()
 
 " Basics
-	
+
+	if has("win64")
+		set shell=pwsh
+		set shellcmdflag=-c
+		set shellquote=
+		set shellxquote=
+	endif
+
+
 	set noswapfile
 	let mapleader = " "
 	let maplocalleader = ","
