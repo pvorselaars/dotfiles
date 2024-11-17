@@ -62,7 +62,8 @@
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
 	map <leader>m :w<CR> :make<CR>
-	map <leader>a :w<CR> :!compiler %<CR>
+	map <leader>a :w<CR> :!compiler % 
+	map <leader>d :w<CR> :term gdb -tui %:r <CR>
 	map <leader>r :!%:p:r<CR>
 	map <leader>s :term<CR>
 	map <F8> :w <CR> :make %<<CR>
