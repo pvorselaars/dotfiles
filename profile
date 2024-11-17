@@ -1,5 +1,5 @@
 export PS1=' \W \$ '
-export EDITOR=vim
+export EDITOR=nvim
 export PATH=$PATH:$HOME/bin
 
 export GPG_TTY="$(tty)"
