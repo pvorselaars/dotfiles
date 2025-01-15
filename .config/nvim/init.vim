@@ -45,7 +45,7 @@
 	
 	" Colors
 	colorscheme deep-space
-	set t_Co=256
+	set notermguicolors
 
 	function Numbers()
 		set number relativenumber
