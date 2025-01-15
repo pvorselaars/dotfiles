@@ -3,8 +3,10 @@ Set-PSReadlineKeyHandler -Chord "End" -Function AcceptNextSuggestionWord
 
 $PSStyle.FileInfo.Directory = "`e[34;1m"
 
+$env:EDITOR="nvim"
+
 function prompt {
-	$date = Get-Date -Format "M/dd hh:mm"
+	$date = Get-Date -Format "M/dd HH:mm"
 	$cwd = Get-Location | Split-Path -Leaf
 	$branch = git branch --show-current 2> $null
 	
