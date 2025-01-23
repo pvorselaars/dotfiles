@@ -37,6 +37,7 @@
 	syntax on
 	set shortmess =I
 	set encoding =utf-8
+	set expandtab
 
 	set hidden
 	set confirm
