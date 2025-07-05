@@ -5,17 +5,7 @@ $PSStyle.FileInfo.Directory = "`e[34;1m"
 
 $env:EDITOR="nvim"
 
-function prompt {
-	$date = Get-Date -Format "M/dd HH:mm"
-	$cwd = Get-Location | Split-Path -Leaf
-	$branch = git branch --show-current 2> $null
-	
-	if ($branch) {
-		$branch = "$branch "
-	}
-
-	"$date $cwd $($PSStyle.Foreground.Magenta)$branch$($PSStyle.Reset)> "
-}
+function prompt { "> " }
 
 function Set-Namespace {
 	kubectl config set-context --current --namespace $args
@@ -59,3 +49,13 @@ Set-Alias -Name gs -Value Git-Status
 Set-Alias -Name gca -Value Git-Commit
 Set-Alias -Name g -Value Git-Pull
 Set-Alias -Name gd -Value Git-Diff
+
+
+$vcvarsPath = "C:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvars64.bat"
+
+cmd /c "`"$vcvarsPath`" && set" | ForEach-Object {
+    if ($_ -match "^(.*?)=(.*)$") {
+        [System.Environment]::SetEnvironmentVariable($matches[1], $matches[2])
+    }
+}
+
