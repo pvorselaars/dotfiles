@@ -51,10 +51,6 @@
 
 	set noshowmode
 	set autochdir
-	
-	" Colors
-	colorscheme deep-space
-	set notermguicolors
 
 	function Numbers()
 		set number relativenumber
