@@ -1,6 +1,6 @@
 export PS1=' \W \$ '
 export EDITOR=nvim
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.bin
 
 set -o vi
 
@@ -16,3 +16,6 @@ alias gp='git push'
 alias g='git pull'
 alias gl='git --no-pager log --pretty=tformat:"%cn %cd %h %s"'
 alias gd='git diff'
+
+exec mako
+exec dwl
