@@ -16,6 +16,3 @@ alias gp='git push'
 alias g='git pull'
 alias gl='git --no-pager log --pretty=tformat:"%cn %cd %h %s"'
 alias gd='git diff'
-
-exec mako
-exec dwl
