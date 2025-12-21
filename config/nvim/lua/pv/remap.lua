@@ -23,5 +23,18 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("n", "<leader>m", ":w<CR> :make<CR>");
+vim.keymap.set("n", "<leader>a", ":w<CR> :!compiler %<CR>");
+vim.keymap.set("n", "<leader>f", ":w<CR> :!formatter %<CR>");
+
+vim.keymap.set("n", "<leader>v", ":vsp<CR>");
+vim.keymap.set("n", "<leader>h", ":hsp<CR>");
+vim.keymap.set("n", "<leader>o", ":only<CR>");
+
+vim.keymap.set("n", "<C-h>", "<C-w>h<CR>");
+vim.keymap.set("n", "<C-j>", "<C-w>j<CR>");
+vim.keymap.set("n", "<C-k>", "<C-w>k<CR>");
+vim.keymap.set("n", "<C-l>", "<C-w>l<CR>");
+
 vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
