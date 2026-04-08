@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeToggle)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = '[LSP] Go to Definition' })
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '[LSP] Go to Declaration' })
