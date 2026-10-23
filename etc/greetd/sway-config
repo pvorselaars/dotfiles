@@ -1,0 +1,4 @@
+# Minimal sway session that only runs the greeter, then exits when login is done.
+exec "gtkgreet --layer-shell --background /etc/greetd/background.jpg --style /etc/greetd/gtkgreet.css --command sway; swaymsg exit"
+input type:touchpad tap enabled
+include /etc/sway/config.d/*

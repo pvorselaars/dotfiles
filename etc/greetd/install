@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Replace GDM with greetd + gtkgreet, styled to match the desktop. Needs sudo.
+# Undo: sudo systemctl disable greetd && sudo systemctl enable --force gdm   (then reboot)
+set -euo pipefail
+here=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+
+sudo dnf install -y greetd gtkgreet gtk-layer-shell
+
+sudo install -d /etc/greetd
+for f in config.toml sway-config environments gtkgreet.css; do
+    sudo install -m 644 "$here/$f" "/etc/greetd/$f"
+done
+
+# background: the current wallpaper, blurred and dimmed (the greeter user cannot read your home)
+wall=$(sed -n 's/^output \* bg "\(.*\)" fill.*/\1/p' "$HOME/.config/sway/wallpaper.conf" 2>/dev/null || true)
+[ -f "$wall" ] || wall=$(find "$HOME/Pictures/Wallpapers" -type f | shuf -n 1)
+magick "$wall" -resize 2880x -blur 0x12 -modulate 45,80 -fill '#1f2329' -colorize 30% -quality 90 /tmp/greetd-background.jpg
+sudo install -m 644 /tmp/greetd-background.jpg /etc/greetd/background.jpg
+rm -f /tmp/greetd-background.jpg
+
+sudo systemctl disable gdm
+sudo systemctl enable --force greetd
+echo "done: greetd takes over at the next boot (sudo systemctl stop gdm would end your session now, so reboot instead)"
