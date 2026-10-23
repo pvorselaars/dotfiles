@@ -1,0 +1,132 @@
+/*
+ * Minimal Firefox, in the One Dark Darker palette of the desktop (sway, foot, fuzzel, nvim, the start page).
+ * Written against Firefox 158; element names and variables change between versions, so check them
+ * with ./preview (a real window in a throwaway profile) after an upgrade.
+ *
+ *   - flat, square, one accent colour
+ *   - the tab bar only shows with two or more tabs (use Tridactyl's `b` to switch)
+ *   - the address bar has no suggestion dropdown (like SimpleFox): type, then Enter
+ *   - toolbar clutter hidden: window buttons (the tiling WM has its own), VPN, account, translate, ...
+ */
+
+:root {
+  --sf-bg: #1f2329;
+  --sf-deep: #181b20;
+  --sf-surface: #282c34;
+  --sf-raised: #30363f;
+  --sf-text: #a0a8b7;
+  --sf-bright: #e6e9ee;
+  --sf-dim: #7a818e;
+  --sf-accent: #4fa6ed;
+
+  /* Firefox's own variables, the names that exist in 158 */
+  --toolbar-bg-color: var(--sf-bg) !important;
+  --toolbar-color: var(--sf-text) !important;
+  --toolbar-field-background-color: var(--sf-surface) !important;
+  --toolbar-field-border-color: transparent !important;
+  --urlbar-box-background-color: var(--sf-surface) !important;
+  --lwt-accent-color: var(--sf-deep) !important;
+  --lwt-text-color: var(--sf-text) !important;
+  --tabpanel-background-color: var(--sf-bg) !important;
+  --panel-background: var(--sf-bg) !important;
+  --panel-border-color: var(--sf-raised) !important;
+  --chrome-content-separator-color: var(--sf-raised) !important;
+  --toolbarbutton-icon-fill: var(--sf-text) !important;
+
+  /* square corners everywhere (the circle token stays: it is used for avatars and radio buttons) */
+  --border-radius-xsmall: 0px !important;
+  --border-radius-small: 0px !important;
+  --border-radius-medium: 0px !important;
+  --border-radius-large: 0px !important;
+  --border-radius-xlarge: 0px !important;
+  --button-border-radius: 0px !important;
+  --toolbarbutton-border-radius: 0px !important;
+  --tab-border-radius: 0px !important;
+}
+
+/* ---- text: the same sans-serif as the start page ---- */
+.tab-label, #urlbar-input, .urlbarView, menupopup, menuitem, menu, panel, .panel-subview-body,
+toolbarbutton .toolbarbutton-text, label, description, tooltip {
+  font-family: "Adwaita Sans", "Cantarell", "Noto Sans", sans-serif !important;
+}
+
+/* ---- the tab bar: only when there is more than one tab ---- */
+#TabsToolbar:not(:has(.tabbrowser-tab ~ .tabbrowser-tab, #pinned-tabs-container > .tabbrowser-tab)) {
+  display: none !important;
+}
+#TabsToolbar {
+  background: var(--sf-deep) !important;
+  border: 0 !important;
+}
+.tabbrowser-tab { --tab-min-height: 28px !important; }
+.tab-background { background: transparent !important; box-shadow: none !important; border: 0 !important; margin-block: 0 !important; }
+.tabbrowser-tab:hover .tab-background:not([selected]) { background: var(--sf-surface) !important; }
+.tabbrowser-tab[selected] .tab-background { background: var(--sf-bg) !important; border-top: 2px solid var(--sf-accent) !important; }
+.tab-label { color: var(--sf-text) !important; font-size: 13px; }
+.tabbrowser-tab[selected] .tab-label { color: var(--sf-bright) !important; }
+.tab-close-button { display: none !important; }
+.tabbrowser-tab:hover .tab-close-button { display: flex !important; }
+
+/* window buttons, tab search, tab menu, AI and smart-window buttons: not needed in a tiling WM */
+#browser-window-close-button, #browser-window-minimize-button, #browser-window-maximize-button, #browser-window-restore-down-button,
+.titlebar-buttonbox-container, #tabs-toolbar-list-all-tabs, #alltabs-button, #ai-action-button, #smartwindow-ask-button,
+#split-view-button, #urlbar-split-view-button { display: none !important; }
+
+/* ---- the navigation bar: one slim row ---- */
+#nav-bar {
+  background: var(--sf-bg) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 34px !important;
+}
+#nav-bar toolbarbutton { padding: 4px !important; }
+
+#urlbar { --urlbar-height: 28px !important; font-size: 13px !important; }
+#urlbar-input-container { background: var(--sf-surface) !important; border: 1px solid transparent !important; box-shadow: none !important; }
+#urlbar[focused] #urlbar-input-container, #urlbar[open] #urlbar-input-container { border-color: var(--sf-accent) !important; }
+#urlbar-input { color: var(--sf-bright) !important; }
+
+/* no suggestion dropdown */
+.urlbarView { display: none !important; }
+
+/* clutter in the address bar and toolbar */
+#page-action-buttons, #star-button-box, #urlbar-zoom-button, #reader-mode-button, #share-button, #urlbar-translations-button2,
+#translations-button, #identity-icon-label, #urlbar-label-box, #urlbar-trust-icon-notsecure-label, [id^="urlbar-trust-icon-"][id$="-label"], #sidebar-button, #fxa-toolbar-menu-button, #ipprotection,
+[id^="ipprotection"]:not(#ipprotection-header-button), #whimsy-button { display: none !important; }
+
+/* ---- content area, popups, sidebar ---- */
+#sidebar-box, #sidebar-header { background: var(--sf-bg) !important; color: var(--sf-text) !important; }
+menupopup, panel { --panel-background: var(--sf-bg); --panel-color: var(--sf-text); --panel-border-color: var(--sf-raised); }
+
+/* trust icon: keep the icon, drop its text ("Not Secure", tracker counts) */
+#trust-label,
+#trust-icon-tracker-count-shortform-wrapper,
+#trust-icon-tracker-count-longform-wrapper { display: none !important; }
+
+/* one row: address bar left, tabs in the middle, extensions + menu buttons right */
+#navigator-toolbox { display: grid !important; --sf-urlbar-width: clamp(320px, 30vw, 520px); }
+#navigator-toolbox > * { grid-column: 1; }
+#navigator-toolbox > #nav-bar, #navigator-toolbox > #TabsToolbar { grid-row: 1; }
+#navigator-toolbox:has(.tabbrowser-tab ~ .tabbrowser-tab, #pinned-tabs-container > .tabbrowser-tab) {
+  #nav-bar-customization-target { display: flex; }
+  #urlbar-container { flex: none !important; width: var(--sf-urlbar-width) !important; min-width: 0 !important; max-width: none !important; }
+  #nav-bar { position: relative; }
+  #unified-extensions-button { position: absolute !important; right: 38px; top: 0; bottom: 0; margin: auto 0; }
+  #TabsToolbar { background: var(--sf-bg) !important; }
+  > #TabsToolbar { margin-left: var(--sf-urlbar-width); margin-right: 76px; position: relative; z-index: 1; }
+}
+#back-button, #forward-button, #reload-button, #stop-button { display: none !important; }
+#nav-bar toolbarspring, #nav-bar toolbarspacer, #nav-bar-customization-target > toolbaritem[id^="customizableui-special-spring"] { display: none !important; }
+#nav-bar { padding-inline: 0 !important; }
+#urlbar-container { margin-inline: 0 !important; }
+#nav-bar-overflow-button { display: none !important; }
+
+/* app menu and context menus: flat, compact, no promos */
+#appMenu-menu-message, #appMenu-fxa-status2, #appMenu-fxa-separator, #appMenu-fxa-sign-in-promo { display: none !important; }
+panel, menupopup { --panel-background-color: var(--sf-bg) !important; --panel-text-color: var(--sf-text) !important; --panel-padding-block: 4px !important; --panel-background: var(--sf-bg) !important; --panel-border-color: var(--sf-raised) !important; --panel-shadow: none !important; --panel-border-radius: 0px !important; --panel-shadow-margin: 0px !important; }
+.panel-subview-body, #appMenu-mainView { background: var(--sf-bg) !important; }
+.subviewbutton, menuitem, menu { --menuitem-padding-block: 5px; --menuitem-padding-inline: 12px; --menuitem-border-radius: 0px; border-radius: 0 !important; color: var(--sf-text) !important; font-size: 13px !important; }
+.subviewbutton:not([disabled]):hover, .subviewbutton:not([disabled])[_moz-menuactive], menuitem:not([disabled])[_moz-menuactive], menu:not([disabled])[_moz-menuactive] { background: var(--sf-surface) !important; color: var(--sf-bright) !important; }
+.subviewbutton[disabled], menuitem[disabled] { color: var(--sf-dim) !important; }
+.subviewbutton > .menu-accel-container, .subviewbutton .menu-accel, menuitem .menu-accel { color: var(--sf-dim) !important; font-size: 12px !important; }
+toolbarseparator, menuseparator, panel-separator { border-color: var(--sf-raised) !important; opacity: 1 !important; }

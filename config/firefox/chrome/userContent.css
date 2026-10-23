@@ -1,0 +1,20 @@
+/*
+ * Light content tweaks. Websites keep their own styling: these rules carry no !important,
+ * so a site that sets its own scrollbar or selection colour still wins.
+ */
+
+/* a dark blank page instead of a white flash */
+@-moz-document url("about:blank") {
+  :root { background: #1f2329 !important; }
+}
+
+/* thin scrollbars, in the palette */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: #4a515c transparent;
+}
+
+/* text selection in the accent colour */
+::selection {
+  background-color: rgba(79, 166, 237, 0.35);
+}

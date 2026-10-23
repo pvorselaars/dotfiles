@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Symlink the theme into a Firefox profile. Usage: ./install [profile-dir]
+set -euo pipefail
+here=$(cd "$(dirname "$0")" && pwd)
+profile=${1:-$HOME/.config/mozilla/firefox/rbxd5tyk.default-release}
+[ -d "$profile" ] || { echo "no such profile: $profile" >&2; exit 1; }
+
+link() {
+  local src=$1 dst=$2
+  if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+    echo "refusing to overwrite $dst (merge it by hand)" >&2
+    return 1
+  fi
+  ln -sfn "$src" "$dst"
+  echo "linked $dst"
+}
+
+link "$here/chrome" "$profile/chrome"
+link "$here/user.js" "$profile/user.js"
+echo "restart Firefox to apply"
