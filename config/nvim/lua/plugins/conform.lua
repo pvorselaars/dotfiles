@@ -11,6 +11,7 @@ return {
     opts = {
         formatters_by_ft = {
             c = { "indent_linux" },
+            tex = { "tex-fmt" },
         },
         formatters = {
             -- same flags as the `formatter` script in ~/Projects/scripts

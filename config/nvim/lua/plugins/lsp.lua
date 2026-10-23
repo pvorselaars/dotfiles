@@ -15,14 +15,23 @@ return {
             "neovim/nvim-lspconfig",
         },
         opts = {
-            ensure_installed = { "lua_ls", "clangd" },
+            -- texlab: references, symbols and gd from \cite{} to the .bib entry; ltex_plus: grammar and spelling
+            ensure_installed = { "lua_ls", "clangd", "texlab", "ltex_plus" },
         },
+        config = function(_, opts)
+            -- only LaTeX: notes in markdown stay free of grammar warnings; the language is detected per document
+            vim.lsp.config("ltex_plus", {
+                filetypes = { "tex" },
+                settings = { ltex = { language = "auto" } },
+            })
+            require("mason-lspconfig").setup(opts)
+        end,
     },
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = { "mason-org/mason.nvim" },
         opts = {
-            ensure_installed = { "roslyn", "netcoredbg" },
+            ensure_installed = { "roslyn", "netcoredbg", "tex-fmt" },
         },
     },
     {
