@@ -1,0 +1,6 @@
+[Unit]
+Description=Warn when the battery is low
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/battery-warn
