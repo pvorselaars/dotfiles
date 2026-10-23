@@ -20,7 +20,7 @@ set $right l
 set $term foot
 set $menu fuzzel
 set $browser firefox
-set $lock swaylock -f -c 1f2329 --inside-color 1f2329 --ring-color 30363f --key-hl-color 4fa6ed --bs-hl-color e55561 --line-color 00000000 --separator-color 00000000 --inside-ver-color 282c34 --ring-ver-color bf68d9 --inside-wrong-color 1f2329 --ring-wrong-color e55561 --text-color a0a8b7
+set $lock ~/.local/bin/lock-screen
 
 ### Appearance
 font pango:JetBrains Mono 10
@@ -65,12 +65,7 @@ exec sh -c '[ -x /usr/libexec/polkit-mate-authentication-agent-1 ] && exec /usr/
 exec ~/.local/bin/wallpaper-cycle 1800
 
 ### Idle / lock
-exec swayidle -w \
-    timeout 300 '$lock' \
-    timeout 600 'swaymsg "output * power off"' \
-        resume 'swaymsg "output * power on"' \
-    before-sleep '$lock' \
-    lock '$lock'
+# swayidle runs as a systemd user service (config/systemd/user/swayidle.service)
 
 ### Basics
 bindsym $mod+Return exec $term
@@ -113,6 +108,15 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+grave scratchpad show
 bindsym $mod+Shift+grave floating disable
+bindsym $mod+Shift+d exec ~/.local/bin/minimize-all
+
+### Gaps
+bindsym $mod+Ctrl+equal gaps inner all plus 2
+bindsym $mod+Ctrl+minus gaps inner all minus 2
+bindsym $mod+Mod1+equal exec ~/.local/bin/scale-step +0.25
+bindsym $mod+Mod1+minus exec ~/.local/bin/scale-step -0.25
+bindsym $mod+Mod1+0 exec ~/.local/bin/scale-step reset
+bindsym $mod+Ctrl+0 gaps inner all set 6
 
 ### Workspaces
 bindsym $mod+1 workspace number 1
@@ -193,6 +197,24 @@ bindsym $mod+Ctrl+n exec makoctl mode -t do-not-disturb && ~/.local/bin/statusba
 bindswitch --locked --reload lid:on exec ~/.local/bin/lid-handler close
 bindswitch --locked --reload lid:off exec ~/.local/bin/lid-handler open
 bindsym $mod+Shift+p exec ~/.local/bin/power-menu
+bindsym $mod+Shift+o exec ~/.local/bin/power-profile
+bindsym $mod+Shift+t exec ~/.local/bin/presentation-mode
+
+### Help, menus and recording
+bindsym $mod+question exec ~/.local/bin/keybindings-help
+bindsym $mod+slash exec ~/.local/bin/web-search
+bindsym $mod+Ctrl+w exec ~/.local/bin/wifi-menu
+bindsym $mod+Ctrl+b exec ~/.local/bin/bluetooth-menu
+bindsym $mod+Shift+r exec ~/.local/bin/screen-record region
+bindsym $mod+Ctrl+r exec ~/.local/bin/screen-record full
+
+### Pickers (fuzzel)
+bindsym $mod+g exec ~/.local/bin/window-switcher
+bindsym $mod+period exec ~/.local/bin/emoji-picker
+bindsym $mod+c exec ~/.local/bin/calculator
+bindsym $mod+o exec ~/.local/bin/file-finder
+bindsym $mod+u exec ~/.local/bin/bookmarks
+bindsym $mod+m exec ~/.local/bin/quick-note
 
 ### Window rules
 # keep the screen awake while anything is fullscreen (video, presentations)

@@ -1,0 +1,22 @@
+[Unit]
+Description=Idle manager: lock after 5 minutes, screen off after 10
+PartOf=sway-session.target
+After=sway-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayidle -w \
+    timeout 300 '%h/.local/bin/lock-screen' \
+    timeout 600 'swaymsg "output * power off"' \
+        resume 'swaymsg "output * power on"' \
+    before-sleep '%h/.local/bin/lock-screen' \
+    lock '%h/.local/bin/lock-screen'
+Restart=always
+RestartSec=2
+# swaylock daemonizes inside this service's cgroup. Only stop swayidle itself on restart,
+# otherwise restarting this service would kill swaylock and unlock the screen.
+KillMode=process
+
+[Install]
+WantedBy=sway-session.target
