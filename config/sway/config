@@ -71,7 +71,7 @@ exec ~/.local/bin/wallpaper-cycle 1800
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+b exec $browser
-bindsym $mod+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+bindsym $mod+Shift+v exec ~/.local/bin/clipboard-history
 bindsym $mod+Shift+w exec pkill -USR1 -f '^bash .*wallpaper-cycle'
 bindsym $mod+i exec ~/.local/bin/statusbar-refresh all
 bindsym $mod+Shift+q kill
@@ -190,6 +190,7 @@ for_window [app_id="dropdown"] floating enable, resize set width 80 ppt height 5
 ### Notifications
 bindsym $mod+n exec makoctl restore
 bindsym $mod+Shift+n exec makoctl dismiss --all
+bindsym $mod+Ctrl+Shift+n exec ~/.local/bin/notification-history
 bindsym $mod+Ctrl+n exec makoctl mode -t do-not-disturb && ~/.local/bin/statusbar-refresh
 
 ### Lid and power
@@ -207,12 +208,21 @@ bindsym $mod+Ctrl+w exec ~/.local/bin/wifi-menu
 bindsym $mod+Ctrl+b exec ~/.local/bin/bluetooth-menu
 bindsym $mod+Ctrl+a exec ~/.local/bin/audio-menu
 bindsym $mod+Ctrl+d exec ~/.local/bin/ado menu
+bindsym $mod+Ctrl+Shift+d exec ~/.local/bin/ado menu search
 bindsym $mod+Shift+r exec ~/.local/bin/screen-record region
 bindsym $mod+Ctrl+r exec ~/.local/bin/screen-record full
+# a bug report: pick the work item, select the area; press it again to stop and attach the GIF
+bindsym $mod+Shift+b exec ~/.local/bin/bug-report
+# the same with a picture of an area instead of a recording
+bindsym $mod+Ctrl+Shift+b exec ~/.local/bin/bug-report --shot
 
 ### Pickers (fuzzel)
 bindsym $mod+g exec ~/.local/bin/window-switcher
 bindsym $mod+period exec ~/.local/bin/emoji-picker
+bindsym $mod+Shift+period exec ~/.local/bin/gif-picker
+# the small window that plays the highlighted GIF while gif-picker is open (the script places it)
+for_window [app_id="gif-preview"] floating enable, sticky enable, border none
+no_focus [app_id="gif-preview"]
 bindsym $mod+c exec ~/.local/bin/calculator
 bindsym $mod+o exec ~/.local/bin/file-finder
 bindsym $mod+u exec ~/.local/bin/bookmarks
