@@ -1,0 +1,9 @@
+[options]
+background=1f2329
+overlay_font=JetBrains Mono:12
+overlay_text_color=e6e9ee
+overlay_background_color=181b20
+overlay_background_alpha=d0
+overlay_position_bottom=true
+scaling_mode=shrink
+upscaling_method=linear
