@@ -1,0 +1,15 @@
+/* rofi: Control+h/j/k/l move the highlight (left, down, up, right), like the Control+j/k of fuzzel.ini.
+   rofi's own uses of these keys are moved: Control+j accepted an entry, Control+h was backspace, Control+k deleted to
+   the end of the line and Control+l completed a mode. The arrows also move left and right in a grid. */
+configuration {
+    kb-row-up:            "Up,Control+p,Control+k";
+    kb-row-down:          "Down,Control+n,Control+j";
+    kb-row-left:          "Left,Control+Page_Up,Control+h";
+    kb-row-right:         "Right,Control+Page_Down,Control+l";
+    kb-move-char-back:    "Control+b";
+    kb-move-char-forward: "Control+f";
+    kb-accept-entry:      "Control+m,Return,KP_Enter";
+    kb-remove-char-back:  "BackSpace,Shift+BackSpace";
+    kb-remove-to-eol:     "Control+Alt+k";
+    kb-mode-complete:     "Control+Alt+l";
+}
