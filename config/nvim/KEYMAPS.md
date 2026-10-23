@@ -213,7 +213,7 @@ In a git repository (gitsigns):
 
 | Key | Mode | What it does |
 |---|---|---|
-| `<leader>rm` | n | Save and run `make` |
+| `<leader>rm` | n | Save and run `make` (in C# files: `dotnet build`, with the errors in the quickfix list) |
 | `<leader>rc` | n | Save, compile and run this file with the `compiler` script |
 | `<leader>qo` | n | Open the quickfix list |
 | `<leader>qc` | n | Close the quickfix list |
