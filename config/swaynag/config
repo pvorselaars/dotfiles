@@ -1,0 +1,18 @@
+font=JetBrains Mono 10
+background=1f2329
+border=4fa6ed
+border-bottom=4fa6ed
+text=a0a8b7
+button-background=282c34
+button-text=a0a8b7
+button-border=30363f
+button-border-size=1
+message-padding=10
+
+[warning]
+border=e2b86b
+border-bottom=e2b86b
+
+[error]
+border=e55561
+border-bottom=e55561

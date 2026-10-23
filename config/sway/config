@@ -1,0 +1,226 @@
+### Theme: One Dark Darker (keep ~/.config/fuzzel/fuzzel.ini in sync)
+set $crust    #0e1013
+set $mantle   #181b20
+set $base     #1f2329
+set $surface0 #282c34
+set $surface1 #30363f
+set $overlay0 #535965
+set $subtext  #7a818e
+set $text     #a0a8b7
+set $blue     #4fa6ed
+set $lavender #bf68d9
+set $red      #e55561
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $menu fuzzel
+set $browser firefox
+set $lock swaylock -f -c 1f2329 --inside-color 1f2329 --ring-color 30363f --key-hl-color 4fa6ed --bs-hl-color e55561 --line-color 00000000 --separator-color 00000000 --inside-ver-color 282c34 --ring-ver-color bf68d9 --inside-wrong-color 1f2329 --ring-wrong-color e55561 --text-color a0a8b7
+
+### Appearance
+font pango:JetBrains Mono 10
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+gaps inner 6
+gaps outer 0
+smart_gaps on
+focus_follows_mouse no
+# class                 border    backgr    text      indicator  child_border
+client.focused          $blue     $base     $text     $lavender  $blue
+client.focused_inactive $surface0 $mantle   $subtext  $surface0  $surface0
+client.unfocused        $mantle   $mantle   $overlay0 $mantle    $mantle
+client.urgent           $red      $red      $crust    $red       $red
+client.placeholder      $mantle   $mantle   $overlay0 $mantle    $mantle
+output eDP-1 scale 1.5
+include ~/.config/sway/wallpaper.conf
+
+### Input
+input type:keyboard {
+    xkb_layout us
+    xkb_variant euro
+    xkb_options caps:escape
+    repeat_delay 250
+    repeat_rate 40
+}
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+    middle_emulation enabled
+}
+
+### Autostart
+exec mako
+exec wl-paste --watch cliphist store
+exec wlsunset -t 4000 -T 6500 -S 07:00 -s 20:00
+exec sh -c '[ -x /usr/libexec/polkit-mate-authentication-agent-1 ] && exec /usr/libexec/polkit-mate-authentication-agent-1'
+
+### Wallpaper slideshow
+exec ~/.local/bin/wallpaper-cycle 1800
+
+### Idle / lock
+exec swayidle -w \
+    timeout 300 '$lock' \
+    timeout 600 'swaymsg "output * power off"' \
+        resume 'swaymsg "output * power on"' \
+    before-sleep '$lock' \
+    lock '$lock'
+
+### Basics
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
+bindsym $mod+b exec $browser
+bindsym $mod+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+bindsym $mod+Shift+w exec pkill -USR1 -f '^bash .*wallpaper-cycle'
+bindsym $mod+i exec ~/.local/bin/statusbar-refresh all
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit' 'swaymsg exit'
+bindsym $mod+Escape exec $lock
+floating_modifier $mod normal
+
+### Focus (vim keys)
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+space focus mode_toggle
+
+### Move windows
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+### Layout
+bindsym $mod+Shift+backslash splith
+bindsym $mod+minus splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+
+### Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+grave scratchpad show
+bindsym $mod+Shift+grave floating disable
+
+### Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+bracketleft workspace prev
+bindsym $mod+bracketright workspace next
+bindsym $mod+Ctrl+$left move workspace to output left
+bindsym $mod+Ctrl+$right move workspace to output right
+
+### Resize mode
+mode "resize" {
+    bindsym $left resize shrink width 40px
+    bindsym $down resize grow height 40px
+    bindsym $up resize shrink height 40px
+    bindsym $right resize grow width 40px
+    bindsym Shift+$left resize shrink width 10px
+    bindsym Shift+$down resize grow height 10px
+    bindsym Shift+$up resize shrink height 10px
+    bindsym Shift+$right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+### Screenshots (saved to ~/Pictures and copied to clipboard)
+set $shot ~/Pictures/shot-$(date +%Y%m%d-%H%M%S).png
+bindsym Print exec grim - | tee $shot | wl-copy
+bindsym $mod+Print exec grim -g "$(slurp)" - | tee $shot | wl-copy
+bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+bindsym Shift+Print exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy
+
+### Media keys
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ && ~/.local/bin/statusbar-refresh
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/.local/bin/statusbar-refresh
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && ~/.local/bin/statusbar-refresh
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessUp exec brightnessctl -c backlight set 5%+ && ~/.local/bin/statusbar-refresh
+bindsym --locked XF86MonBrightnessDown exec brightnessctl -c backlight set 5%- && ~/.local/bin/statusbar-refresh
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+### Touchpad gestures (three fingers: swipe left/right to change workspace)
+bindgesture swipe:3:left workspace next_on_output
+bindgesture swipe:3:right workspace prev_on_output
+
+### Dropdown terminal (a foot window kept in the scratchpad)
+bindsym $mod+Shift+Return exec ~/.local/bin/dropdown-terminal
+for_window [app_id="dropdown"] floating enable, resize set width 80 ppt height 50 ppt, move scratchpad, scratchpad show
+
+### Notifications
+bindsym $mod+n exec makoctl restore
+bindsym $mod+Shift+n exec makoctl dismiss --all
+bindsym $mod+Ctrl+n exec makoctl mode -t do-not-disturb && ~/.local/bin/statusbar-refresh
+
+### Lid and power
+# docked: switch the panel off on lid close; undocked: logind suspends and swayidle locks
+bindswitch --locked --reload lid:on exec ~/.local/bin/lid-handler close
+bindswitch --locked --reload lid:off exec ~/.local/bin/lid-handler open
+bindsym $mod+Shift+p exec ~/.local/bin/power-menu
+
+### Window rules
+# keep the screen awake while anything is fullscreen (video, presentations)
+for_window [shell=".*"] inhibit_idle fullscreen
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Picture-in-Picture"] floating enable, sticky enable
+
+### Bar
+bar {
+    position top
+    mode dock
+    font pango:JetBrains Mono 10
+    separator_symbol " · "
+    pango_markup enabled
+    status_command ~/.local/bin/statusbar
+    colors {
+        background $base
+        statusline $text
+        separator  $overlay0
+        focused_workspace  $blue     $blue     $crust
+        active_workspace   $surface1 $surface1 $text
+        inactive_workspace $base     $base     $subtext
+        urgent_workspace   $red      $red      $crust
+        binding_mode       $lavender $lavender $crust
+    }
+}
+
+include /etc/sway/config.d/*
