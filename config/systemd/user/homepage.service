@@ -5,7 +5,7 @@ After=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning %h/Projects/scripts/homepage/server.js
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning %h/Projects/homepage/server.js
 Restart=always
 RestartSec=2
 
