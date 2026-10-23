@@ -1,0 +1,96 @@
+" IdeaVim config, mirrors ~/.config/nvim (see config/nvim/KEYMAPS.md). Action ids checked against Rider 2026.2.
+let mapleader = " "
+
+set relativenumber number
+set ignorecase smartcase incsearch hlsearch
+set scrolloff=8
+set clipboard+=unnamedplus
+set ideajoin
+set notimeout
+set which-key
+set surround commentary highlightedyank
+
+" editing
+nnoremap <Esc> :nohlsearch<CR>
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap <leader>x "_d
+xnoremap <leader>x "_d
+xnoremap <leader>p "_dP
+nnoremap <leader>y "+y
+xnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+xmap J <Action>(MoveLineDown)
+xmap K <Action>(MoveLineUp)
+
+" find
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fg <Action>(FindInPath)
+nmap <leader>fw <Action>(FindInPath)
+nmap <leader>fb <Action>(Switcher)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fs <Action>(FileStructurePopup)
+nmap <leader>fS <Action>(GotoSymbol)
+nmap <leader>fd <Action>(ActivateProblemsViewToolWindow)
+nmap <leader>fk <Action>(GotoAction)
+nmap <leader>fc <Action>(GotoAction)
+
+" windows, buffers
+nmap <leader>wv <Action>(SplitVertically)
+nmap <leader>ws <Action>(SplitHorizontally)
+nmap <leader>wo <Action>(CloseAllEditorsButActive)
+nmap <leader>bd <Action>(CloseContent)
+nmap <leader>e <Action>(SelectInProjectView)
+
+" code
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gri <Action>(GotoImplementation)
+nmap grr <Action>(FindUsages)
+nmap grt <Action>(GotoTypeDeclaration)
+nmap gO <Action>(FileStructurePopup)
+nmap grn <Action>(RenameElement)
+nmap gra <Action>(ShowIntentionActions)
+nmap K <Action>(QuickJavaDoc)
+nmap <leader>cr <Action>(RenameElement)
+nmap <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>cd <Action>(ShowErrorDescription)
+nmap <leader>cf <Action>(ReformatCode)
+xmap <leader>cf <Action>(ReformatCode)
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+
+" git
+nmap <leader>gg <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gc <Action>(CheckinProject)
+nmap <leader>gP <Action>(Vcs.Push)
+nmap <leader>gF <Action>(Vcs.UpdateProject)
+nmap <leader>gl <Action>(Vcs.Show.Log)
+nmap <leader>gB <Action>(Annotate)
+nmap <leader>gd <Action>(Vcs.ShowDiffChangedLines)
+nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [c <Action>(VcsShowPrevChangeMarker)
+
+" debug
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>dB <Action>(EditBreakpoint)
+nmap <leader>dd <Action>(Debug)
+nmap <leader>dc <Action>(Resume)
+nmap <leader>dn <Action>(StepOver)
+nmap <leader>di <Action>(StepInto)
+nmap <leader>do <Action>(StepOut)
+nmap <leader>dC <Action>(RunToCursor)
+nmap <leader>dl <Action>(Rerun)
+nmap <leader>dp <Action>(Pause)
+nmap <leader>dt <Action>(Stop)
+nmap <leader>dw <Action>(QuickEvaluateExpression)
+nmap <leader>dv <Action>(ViewBreakpoints)
+
+" run and build
+nmap <leader>rr <Action>(Run)
+nmap <leader>rm <Action>(BuildSolutionAction)
+nmap <leader>qo <Action>(ActivateProblemsViewToolWindow)
+nmap <leader>qc <Action>(HideActiveWindow)
