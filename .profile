@@ -1,6 +1,6 @@
 export PS1=' \W \$ '
 export EDITOR=nvim
-export PATH=$PATH:$HOME/.bin
+export PATH=$PATH:$HOME/.bin:$HOME/.dotnet/tools
 
 set -o vi
 
