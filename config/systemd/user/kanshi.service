@@ -1,0 +1,14 @@
+[Unit]
+Description=Output profiles for docking and undocking
+PartOf=sway-session.target
+After=sway-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kanshi
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=sway-session.target

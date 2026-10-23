@@ -1,0 +1,19 @@
+# Output profiles, applied when monitors are plugged or unplugged.
+# eDP-1 is 2880x1920, shown at 1.5 (1920x1280 logical), so an external display goes to its right.
+
+profile laptop {
+    output eDP-1 enable scale 1.5 position 0,0
+}
+
+# any one external display next to the laptop panel
+profile docked {
+    output eDP-1 enable scale 1.5 position 0,0
+    output * enable position 1920,0
+    exec ~/.local/bin/lid-handler sync
+}
+
+# lid closed while docked: external display only (switched to by lid-handler)
+profile docked-closed {
+    output eDP-1 disable
+    output * enable position 0,0
+}
