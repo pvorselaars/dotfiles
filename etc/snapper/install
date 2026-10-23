@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Snapshots of /home with snapper (btrfs): one every hour, kept for a limited time. Needs sudo.
+#
+# A snapshot is a frozen copy of /home that costs almost no space until files change. It brings back
+# files you deleted or overwrote, and an earlier state after a bad change. It lives on the same disk, so it
+# does NOT protect against a failing or stolen disk: for that you need a backup somewhere else (restic).
+#
+# Look at them without sudo:  snapper -c home list
+# Get a file back:            cp /home/.snapshots/NUMBER/snapshot/perry/path/to/file ~/path/to/file
+# Undo this script:           sudo systemctl disable --now snapper-timeline.timer snapper-cleanup.timer
+#                             sudo snapper -c home delete-config
+# `install --dry-run` only prints what it would do.
+set -euo pipefail
+
+dry=0
+[ "${1:-}" = --dry-run ] && dry=1
+run() { if [ "$dry" = 1 ]; then echo "+ $*"; else "$@"; fi; }
+
+[ "$(id -u)" -ne 0 ] || { echo "run this as yourself: it uses sudo where it needs to" >&2; exit 1; }
+[ "$(findmnt -no FSTYPE /home)" = btrfs ] || { echo "/home is not on btrfs: snapper cannot snapshot it" >&2; exit 1; }
+
+run sudo dnf install -y snapper
+
+# /home is a btrfs subvolume of its own, so it can be snapshotted; the snapshots go in /home/.snapshots
+if [ "$dry" = 1 ] || ! sudo snapper list-configs | grep -q '^home '; then
+    run sudo snapper -c home create-config /home
+fi
+
+# What to keep: 6 hourly, 7 daily, 4 weekly and 3 monthly snapshots; the cleanup timer removes the rest.
+# ALLOW_USERS and SYNC_ACL let you list and browse the snapshots without sudo.
+run sudo snapper -c home set-config \
+    TIMELINE_CREATE=yes TIMELINE_CLEANUP=yes NUMBER_CLEANUP=yes \
+    TIMELINE_LIMIT_HOURLY=6 TIMELINE_LIMIT_DAILY=7 TIMELINE_LIMIT_WEEKLY=4 \
+    TIMELINE_LIMIT_MONTHLY=3 TIMELINE_LIMIT_QUARTERLY=0 TIMELINE_LIMIT_YEARLY=0 \
+    ALLOW_USERS="$USER" SYNC_ACL=yes
+
+run sudo systemctl enable --now snapper-timeline.timer snapper-cleanup.timer
+
+# one snapshot right away, to see that it works
+run sudo snapper -c home create --description "after install"
+run snapper -c home list

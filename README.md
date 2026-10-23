@@ -5,6 +5,7 @@
 | `config/*` | `~/.config/*` | `stow` (from `~/Projects/scripts`) |
 | `.profile`, `.ideavimrc` | `~/` | symlinks, see below |
 | `etc/greetd` | `/etc/greetd` | `etc/greetd/install` (copies, needs sudo) |
+| `etc/snapper` | snapshots of `/home` | `etc/snapper/install` (needs sudo; `--dry-run` shows the steps) |
 
 ## Install
 
