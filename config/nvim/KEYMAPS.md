@@ -102,6 +102,7 @@ Modes: `n` normal, `x` visual, `i` insert, `t` terminal, `o` operator-pending.
 | `<leader>fh` | n | Help |
 | `<leader>fk` | n | Keymaps |
 | `<leader>fc` | n | Commands |
+| `<leader>fB` | n i | Pick a citation from the bibliography and insert `\cite{key}` |
 
 ## Search and replace
 

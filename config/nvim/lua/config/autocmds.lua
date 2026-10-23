@@ -22,3 +22,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup,
     callback = function() vim.hl.on_yank() end,
 })
+
+-- the refer-format bibliography in ~/Projects/bibliography has no extension
+vim.filetype.add({ pattern = { [".*/bibliography/references"] = "refer" } })

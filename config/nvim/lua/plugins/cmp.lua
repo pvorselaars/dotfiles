@@ -6,6 +6,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
+        "micangl/cmp-vimtex",
     },
     config = function()
         local cmp = require("cmp")
@@ -47,6 +48,16 @@ return {
                     return item
                 end,
             },
+        })
+
+        -- \cite{} keys (title and author in the menu), labels, commands and packages from vimtex
+        cmp.setup.filetype("tex", {
+            sources = cmp.config.sources({
+                { name = "vimtex" },
+                { name = "path" },
+            }, {
+                { name = "buffer" },
+            }),
         })
     end,
 }
