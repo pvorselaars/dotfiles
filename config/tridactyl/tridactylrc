@@ -2,3 +2,6 @@
 
 " New tab page: the start page (~/Projects/homepage). Needs a line '127.0.0.1 start' in /etc/hosts.
 set newtab http://start/
+
+" Colours: One Dark Darker, see themes/onedark.css
+colourscheme onedark

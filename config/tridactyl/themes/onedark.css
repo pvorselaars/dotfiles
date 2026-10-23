@@ -1,0 +1,62 @@
+/* One Dark Darker, matching the Firefox theme and the rest of the desktop */
+:root {
+    --tridactyl-bg: #1f2329;
+    --tridactyl-fg: #a0a8b7;
+    --tridactyl-font-family: "JetBrains Mono", monospace;
+    --tridactyl-font-family-sans: "Adwaita Sans", sans-serif;
+    --tridactyl-font-size: 13px;
+    --tridactyl-small-font-size: 12px;
+    --tridactyl-status-border-radius: 0;
+
+    /* command line */
+    --tridactyl-cmdl-bg: #181b20;
+    --tridactyl-cmdl-fg: #e6e9ee;
+    --tridactyl-cmdl-font-size: 13px;
+    --tridactyl-cmdl-line-height: 1.6;
+
+    /* completions */
+    --tridactyl-cmplt-bg: #1f2329;
+    --tridactyl-cmplt-fg: #a0a8b7;
+    --tridactyl-cmplt-font-size: 12px;
+    --tridactyl-cmplt-border-top: 1px solid #30363f;
+    --tridactyl-header-first-bg: #282c34;
+    --tridactyl-header-second-bg: #282c34;
+    --tridactyl-header-third-bg: #282c34;
+    --tridactyl-header-border-bottom: 0;
+    --tridactyl-of-bg: #30363f;
+    --tridactyl-of-fg: #e6e9ee;
+    --tridactyl-url-fg: #4fa6ed;
+    --tridactyl-url-bg: transparent;
+    --tridactyl-url-cursor: #4fa6ed;
+    --tridactyl-externaledit-bg: #282c34;
+
+    /* status indicator */
+    --tridactyl-status-bg: #181b20;
+    --tridactyl-status-fg: #a0a8b7;
+    --tridactyl-status-border: 1px solid #30363f;
+    --tridactyl-status-font-family: "JetBrains Mono", monospace;
+    --tridactyl-status-font-size: 11px;
+
+    /* hints */
+    --tridactyl-hintspan-fg: #181b20;
+    --tridactyl-hintspan-bg: #e5c07b;
+    --tridactyl-hintspan-border-color: #181b20;
+    --tridactyl-hintspan-border-width: 1px;
+    --tridactyl-hintspan-border-style: solid;
+    --tridactyl-hintspan-font-family: "JetBrains Mono", monospace;
+    --tridactyl-hintspan-font-size: 11px;
+    --tridactyl-hintspan-font-weight: bold;
+    --tridactyl-hintspan-pressed-fg: #be5046;
+    --tridactyl-hintspan-active-fg: #181b20;
+    --tridactyl-hintspan-active-bg: #4fa6ed;
+    --tridactyl-hintspan-active-border-color: #181b20;
+    --tridactyl-hint-bg: rgba(229, 192, 123, 0.2);
+    --tridactyl-hint-outline: 1px solid #e5c07b;
+    --tridactyl-hint-active-bg: rgba(79, 166, 237, 0.3);
+    --tridactyl-hint-active-outline: 1px solid #4fa6ed;
+
+    /* find highlights */
+    --tridactyl-search-highlight-color: #e5c07b;
+    --tridactyl-search-highlight-text-color: #181b20;
+    --tridactyl-search-highlight-active-color: #4fa6ed;
+}
