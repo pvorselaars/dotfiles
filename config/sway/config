@@ -205,6 +205,7 @@ bindsym $mod+question exec ~/.local/bin/keybindings-help
 bindsym $mod+slash exec ~/.local/bin/web-search
 bindsym $mod+Ctrl+w exec ~/.local/bin/wifi-menu
 bindsym $mod+Ctrl+b exec ~/.local/bin/bluetooth-menu
+bindsym $mod+Ctrl+a exec ~/.local/bin/audio-menu
 bindsym $mod+Shift+r exec ~/.local/bin/screen-record region
 bindsym $mod+Ctrl+r exec ~/.local/bin/screen-record full
 
