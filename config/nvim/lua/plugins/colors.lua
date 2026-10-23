@@ -1,21 +1,21 @@
-local function enable_transparency()
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-end
 return {
     {
-	"folke/tokyonight.nvim",
-	config = function()
-	    vim.cmd.colorscheme "tokyonight"
-	    enable_transparency()
-	end
+        "navarasu/onedark.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("onedark").setup({
+                style = "darker",
+                transparent = true,
+            })
+            require("onedark").load()
+        end,
     },
     {
-	"nvim-lualine/lualine.nvim",
-	dependencies = {
-	    "nvim-tree/nvim-web-devicons",
-	},
-	opts = {
-	    theme = "tokyonight",
-	}
-    }
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            options = { theme = "onedark" },
+        },
+    },
 }

@@ -1,12 +1,25 @@
-return {
-    "nvim-telescope/telescope.nvim", tag = "v0.2.2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-	local builtin = require("telescope.builtin")
-	vim.keymap.set("n", "<leader>ff", builtin.find_files)
-	vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-	vim.keymap.set("n", "<leader>fb", builtin.buffers)
-	vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-    end
-}
+local function pick(name, opts)
+    return function() require("telescope.builtin")[name](opts) end
+end
 
+return {
+    "nvim-telescope/telescope.nvim",
+    tag = "v0.2.2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Telescope",
+    keys = {
+        { "<leader>ff", pick("find_files"), desc = "Files" },
+        { "<leader>fg", pick("live_grep"), desc = "Grep" },
+        { "<leader>fw", pick("grep_string"), desc = "Grep word under cursor", mode = { "n", "x" } },
+        { "<leader>fb", pick("buffers"), desc = "Buffers" },
+        { "<leader>fr", pick("oldfiles"), desc = "Recent files" },
+        { "<leader>fR", pick("resume"), desc = "Resume last search" },
+        { "<leader>fs", pick("lsp_document_symbols"), desc = "Symbols in file" },
+        { "<leader>fS", pick("lsp_dynamic_workspace_symbols"), desc = "Symbols in project" },
+        { "<leader>fd", pick("diagnostics", { bufnr = 0 }), desc = "Diagnostics in file" },
+        { "<leader>fD", pick("diagnostics"), desc = "Diagnostics in project" },
+        { "<leader>fh", pick("help_tags"), desc = "Help" },
+        { "<leader>fk", pick("keymaps"), desc = "Keymaps" },
+        { "<leader>fc", pick("commands"), desc = "Commands" },
+    },
+}

@@ -1,0 +1,8 @@
+# Same flags as the `compiler` script in ~/Projects/scripts; only for C, so C++ files are left alone
+If:
+  PathMatch: .*\.c
+CompileFlags:
+  Add: [-Wall, -pedantic, -std=c2x]
+Diagnostics:
+  # clangd reports this on every file under -pedantic, even ones with code; gcc and clang builds do not
+  Suppress: [empty-translation-unit]
