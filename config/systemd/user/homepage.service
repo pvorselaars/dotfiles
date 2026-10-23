@@ -1,0 +1,23 @@
+[Unit]
+Description=Browser start page: todos from ~/Notes, Firefox bookmarks, wallpaper
+PartOf=sway-session.target
+After=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning %h/Projects/scripts/homepage/server.js
+Restart=always
+RestartSec=2
+
+# the page reads your notes, wallpapers and Firefox profile; only the notes folder is writable
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=-%h/Notes
+RestrictAddressFamilies=AF_INET AF_UNIX
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=sway-session.target
