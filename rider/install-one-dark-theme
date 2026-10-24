@@ -1,0 +1,65 @@
+#!/bin/bash
+# install-one-dark-theme: gives Rider's windows (menus, tabs, tool windows) the One Dark colours, with the "One Dark
+# Islands" theme from the JetBrains plugin "One Dark Theme" by Mark Skelton (https://plugins.jetbrains.com/plugin/11938).
+# It does not touch the editor colours: those come from the scheme "One Dark (Neovim)" (make-onedark-scheme.js), which
+# stays the editor scheme.
+#
+# The plugin is pinned: this version, this checksum. The download is refused when the checksum differs, or when the plugin
+# contains anything but theme files (no .class files): it is only colours, and it should stay that way after an update.
+# Run it with Rider closed: Rider writes its settings back when it closes. To go back: delete options/laf.xml in Rider's
+# settings folder (it did not exist before) and the folder one-dark-theme in Rider's plugin folder.
+set -euo pipefail
+
+version=6.2.5
+url=https://plugins.jetbrains.com/files/11938/1091393/one-dark-theme-$version.zip
+sha256=46d9548d0844e3e27a9056ae54d055835e0ba2bcd88380b7f422ce915a399afb
+theme_id=71b26d33-3d44-42f4-8166-31b17c762b32   # "One Dark Islands", from the plugin's plugin.xml
+scheme="One Dark (Neovim)"
+
+fail() { echo "error: $*" >&2; exit 1; }
+
+# [r] keeps the pattern from matching the command line that contains it
+if pgrep -f '[r]ider64|JetBrains/Toolbox/apps/[r]ider/' > /dev/null; then
+    fail "Rider is running. Close it first: it writes its settings back when it closes and would undo this."
+fi
+
+config=$(ls -d "$HOME"/.config/JetBrains/Rider[0-9]* 2>/dev/null | sort | tail -n 1)
+[ -n "$config" ] || fail "no Rider settings folder in ~/.config/JetBrains"
+data="$HOME/.local/share/JetBrains/$(basename "$config")"
+[ -d "$data" ] || fail "no Rider plugin folder $data"
+[ -f "$config/colors/$scheme.icls" ] || fail "the editor scheme is not installed yet: run make-onedark-scheme.js --install first"
+
+work=$(mktemp -d); trap 'rm -rf "$work"' EXIT
+echo "downloading $url"
+curl -fsSL --max-time 90 -o "$work/plugin.zip" "$url"
+echo "$sha256  $work/plugin.zip" | sha256sum --check --status || fail "the checksum of the download is not the pinned one: not installing"
+
+entries=$(unzip -Z1 "$work/plugin.zip")
+echo "$entries" | grep -v '^one-dark-theme/' && fail "the plugin has files outside one-dark-theme/: not installing"
+unzip -q "$work/plugin.zip" -d "$work/x"
+for jar in "$work"/x/one-dark-theme/lib/*.jar; do
+    if unzip -Z1 "$jar" | grep -q '\.class$'; then fail "$(basename "$jar") contains code (.class files): not installing"; fi
+done
+
+rm -rf "$data/one-dark-theme"
+cp -r "$work/x/one-dark-theme" "$data/one-dark-theme"
+echo "plugin installed in $data/one-dark-theme"
+
+# the theme to use, and the editor scheme that stays: Rider keeps the scheme from colors.scheme.xml when it starts
+laf="$config/options/laf.xml"
+mkdir -p "$config/options"
+if [ -e "$laf" ]; then
+    [ -e "$laf.before-onedark" ] || cp "$laf" "$laf.before-onedark"
+    echo "note: $laf existed; the old one is kept as laf.xml.before-onedark and replaced"
+fi
+cat > "$laf" <<EOF
+<application>
+  <component name="LafManager" autodetect="false">
+    <laf themeId="$theme_id" />
+    <preferred-dark-laf themeId="$theme_id" />
+  </component>
+</application>
+EOF
+xmllint --noout "$laf"
+echo "theme set in $laf; the editor scheme stays: $(grep -o 'global_color_scheme name="[^"]*"' "$config/options/colors.scheme.xml")"
+echo "Start Rider. If the editor colours are not yours, pick \"$scheme\" under Settings > Editor > Color Scheme."

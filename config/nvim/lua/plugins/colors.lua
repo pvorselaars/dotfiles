@@ -7,6 +7,11 @@ return {
             require("onedark").setup({
                 style = "darker",
                 transparent = true,
+                -- parameters had exactly the colour of errors (DiagnosticError); now the colour of any other variable, as in Rider
+                highlights = {
+                    ["@variable.parameter"] = { fg = "$fg" },
+                    ["@lsp.type.parameter"] = { fg = "$fg" },
+                },
             })
             require("onedark").load()
         end,
