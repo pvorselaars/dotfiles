@@ -44,6 +44,8 @@ Modes: `n` normal, `x` visual, `i` insert, `t` terminal, `o` operator-pending.
 | `<C-u>` | n | Half page up, cursor stays centred |
 | `n` | n | Next search match, centred |
 | `N` | n | Previous search match, centred |
+| `<A-Left>` | n | Back in the jump list, e.g. after going to a definition (Rider: Alt+Left) |
+| `<A-Right>` | n | Forward in the jump list (Rider: Alt+Right) |
 | `]b` | n | Next buffer (*built in*) |
 | `[b` | n | Previous buffer (*built in*) |
 | `]q` | n | Next quickfix item (*built in*) |
@@ -132,6 +134,62 @@ Modes: `n` normal, `x` visual, `i` insert, `t` terminal, `o` operator-pending.
 | `<leader>cr` | n | Rename symbol |
 | `<leader>cd` | n | Diagnostics for this line |
 | `<leader>cl` | n | Run the code lens |
+| `<leader>cR` | n | Refactor this: the refactoring code actions (Rider: Ctrl+Shift+R) |
+| `<F12>` | n | Go to definition (Rider: F12) |
+| `<C-F12>` | n | Go to implementation, in a picker if there are several (Rider: Ctrl+F12) |
+| `<A-F12>` | n | Peek the implementations, never jumps (Rider: Alt+F12) |
+| `<S-F12>` | n | Show the usages in a picker (Rider: Shift+F12) |
+| `<A-S-F12>` | n | Find the usages, in the quickfix list (Rider: Shift+Alt+F12) |
+| `<F2>` | n | Rename (Rider: F2) |
+| `<C-.>` | n x | Quick fix, code action (Rider: Ctrl+.) |
+| `<C-S-Space>` | n i | Parameter info, signature help (Rider: Ctrl+Shift+Space) |
+| `<A-F>` | n x | Format (Rider: Shift+Alt+F) |
+| `<A-O>` | n | Optimize imports (Rider: Shift+Alt+O) |
+| `<C-S-m>` | n | Problems in the whole project (Rider: Ctrl+Shift+M) |
+| `<A-F8>` | n | Next problem, shown in a popup (Rider: Alt+F8) |
+| `<S-F8>` | n | Previous problem (Rider: Shift+F8) |
+| `<A-H>` | n | Call hierarchy: who calls this (Rider: Shift+Alt+H) |
+
+## Coming from Rider
+
+Rider here uses the keymap "VSCode". Two sets of keys work **the same in both editors**:
+
+- The **`g` and `<leader>` keys** (`gd`, `grr`, `<leader>cr`, `<leader>ca`, ...). Rider gets them from IdeaVim,
+  through `~/.ideavimrc`, which mirrors this file.
+- **Rider's own keys** (F12, F2, Ctrl+., Alt+F8, ...). These work in Rider by themselves, and Neovim has the same keys now.
+
+So the table below lists, for each action, Rider's own key, the Vim-style key that works in both, and what Neovim
+adds. The F, Alt and Ctrl+. keys need the terminal to send them: foot does (Neovim turns on its extended key
+protocol), so they work here. Check what Neovim receives for a key with `Ctrl-v` in insert mode, then the key.
+
+Two Rider keys are not in Neovim because **foot keeps them for itself** (Ctrl+Shift+R starts a search in the terminal,
+Ctrl+Shift+O lists URLs); use `<leader>cR` (refactor) and `<leader>fs` or `gO` (file structure), which are the
+same in Rider. `Ctrl+T` (Rider: go to symbol) stays Vim's jump back; go to a symbol with `<leader>fS`.
+
+<!-- check: none -->
+
+| What | Rider's own key | Vim-style, in both | Neovim also has |
+|---|---|---|---|
+| Go to definition | F12 | `gd` | F12 |
+| Go to implementation | Ctrl+F12 | `gri` | Ctrl+F12 |
+| Peek the implementations | Alt+F12 | | Alt+F12 |
+| Show the usages | Shift+F12 | | Shift+F12 |
+| Find usages (a list) | Shift+Alt+F12 | `grr` | Shift+Alt+F12 |
+| Go to the type | | `grt` | |
+| Rename | F2 | `grn`, `<leader>cr` | F2 |
+| Quick fix, actions | Ctrl+. | `gra`, `<leader>ca` | Ctrl+. |
+| Refactor this | Ctrl+Shift+R | `<leader>cR` | |
+| Quick documentation | Ctrl+K Ctrl+I | `K` | |
+| Parameter info | Ctrl+Shift+Space | | Ctrl+Shift+Space (in insert mode also `<C-s>`) |
+| Format | Shift+Alt+F | `<leader>cf` | Shift+Alt+F |
+| Optimize imports | Shift+Alt+O | | Shift+Alt+O |
+| File structure | Ctrl+Shift+O | `gO`, `<leader>fs` | |
+| Go to a symbol | Ctrl+T | `<leader>fS` | |
+| Next and previous problem | Alt+F8, Shift+F8 | `]d`, `[d` | Alt+F8, Shift+F8 |
+| Problems list | Ctrl+Shift+M | `<leader>fd` | Ctrl+Shift+M |
+| Back and forward | Alt+Left, Alt+Right | `<C-o>`, `<C-i>` | Alt+Left, Alt+Right |
+| Call hierarchy | Shift+Alt+H | | Shift+Alt+H |
+| Completion | Ctrl+Space | | Ctrl+Space (insert mode) |
 
 <!-- check: global -->
 
@@ -256,11 +314,13 @@ and are saved in `.bench/` next to the code. The workflow is in `~/Projects/scri
 
 | Key | Mode | What it does |
 |---|---|---|
-| `<leader>z` | n | Notes panel |
+| `<leader>zp` | n | Notes panel |
 | `<leader>zf` | n | Find a note |
 | `<leader>zg` | n | Search inside notes |
 | `<leader>zd` | n | Today's note |
 | `<leader>zn` | n | New note |
+| `<leader>zT` | n | New note from a template |
+| `<leader>za` | n | Apply a template to the current note |
 | `<leader>zz` | n | Follow the link under the cursor |
 | `<leader>zb` | n | Backlinks |
 | `<leader>zc` | n | Calendar |
