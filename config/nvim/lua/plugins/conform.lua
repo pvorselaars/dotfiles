@@ -10,18 +10,10 @@ return {
     },
     opts = {
         formatters_by_ft = {
-            c = { "indent_linux" },
             tex = { "tex-fmt" },
         },
-        formatters = {
-            -- same flags as the `formatter` script in ~/Projects/scripts
-            indent_linux = {
-                command = "indent",
-                args = { "-linux", "-sob", "-l120", "-lc120" },
-                stdin = true,
-            },
-        },
-        -- everything else (C#, Lua, ...) is formatted by its language server
+        -- C and C++ are formatted by clangd, with ~/.clang-format (tabs of 8, 120 columns, the style of `indent -linux`).
+        -- Everything else (C#, Lua, ...) is formatted by its language server too
         default_format_opts = { lsp_format = "fallback" },
     },
 }

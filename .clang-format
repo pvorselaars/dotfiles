@@ -1,0 +1,16 @@
+# The C++ equivalent of the C setup (indent -linux -l120, tabs of 8). clangd (the C and C++ language server in Neovim)
+# reads this file from the directory of the source file upwards; ~/.clang-format links here, so it is the default for
+# every project that does not have a .clang-format of its own, and a project's own file wins.
+BasedOnStyle: LLVM
+UseTab: AlignWithSpaces
+IndentWidth: 8
+TabWidth: 8
+ContinuationIndentWidth: 8
+ColumnLimit: 120
+BreakBeforeBraces: Linux
+IndentCaseLabels: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlignConsecutiveMacros: Consecutive
+AlignTrailingComments: true
