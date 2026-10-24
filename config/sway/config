@@ -209,6 +209,8 @@ bindsym $mod+Ctrl+b exec ~/.local/bin/bluetooth-menu
 bindsym $mod+Ctrl+a exec ~/.local/bin/audio-menu
 bindsym $mod+Ctrl+d exec ~/.local/bin/ado menu
 bindsym $mod+Ctrl+Shift+d exec ~/.local/bin/ado menu search
+# why a run of yours failed: the cause out of its log, as a list in fuzzel (a picked line is copied)
+bindsym $mod+Ctrl+Shift+f exec ~/.local/bin/ado why --fuzzel
 bindsym $mod+Shift+r exec ~/.local/bin/screen-record region
 bindsym $mod+Ctrl+r exec ~/.local/bin/screen-record full
 # a bug report: pick the work item, select the area; press it again to stop and attach the GIF
