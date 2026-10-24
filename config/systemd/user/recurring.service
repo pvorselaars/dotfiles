@@ -1,0 +1,6 @@
+[Unit]
+Description=Add the todos of the recurring rules in ~/Notes/recurring.md
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/recurring
